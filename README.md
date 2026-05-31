@@ -6,6 +6,7 @@ My collection of [Claude Code](https://claude.com/claude-code) skills.
 
 | Skill | Description |
 |---|---|
+| [`create-100m-hooks/`](./create-100m-hooks) | Generate high-performing hooks and X/Twitter content for offers, including Orca-style AI coding-agent/devtool posts, using a $100M Hooks-inspired interview and variation workflow. |
 | [`refactoring-ui/`](./refactoring-ui) | Design coach grounded in Adam Wathan & Steve Schoger's *Refactoring UI*. Triggers on any frontend UI work (build, refactor, or design-decision support) and prescribes concrete changes across hierarchy, spacing, typography, color, depth, images, and finishing touches. |
 
 ## Installing a skill
