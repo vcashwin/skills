@@ -7,6 +7,8 @@ My collection of [Claude Code](https://claude.com/claude-code) skills.
 | Skill | Description |
 |---|---|
 | [`create-100m-hooks/`](./create-100m-hooks) | Generate high-performing hooks and X/Twitter content for offers, including Orca-style AI coding-agent/devtool posts, using a $100M Hooks-inspired interview and variation workflow. |
+| [`generate-code/`](./generate-code) | Convert a Figma design (built with the shadcn/ui Kit for Figma) into a production-ready responsive React/TSX component, reusing the project's shadcn/ui components, Tailwind tokens, and icon library. Handles Pro Blocks, icons, and assets. |
+| [`import-variables/`](./import-variables) | Import Figma design variables (colors, radius, typography, shadows, spacing) into CSS custom properties and sync them to `globals.css`, matching the project's color format. Bundles a `convert-colors.js` hex→oklch/hsl/hex converter. |
 | [`refactoring-ui/`](./refactoring-ui) | Design coach grounded in Adam Wathan & Steve Schoger's *Refactoring UI*. Triggers on any frontend UI work (build, refactor, or design-decision support) and prescribes concrete changes across hierarchy, spacing, typography, color, depth, images, and finishing touches. |
 
 ## Installing a skill
