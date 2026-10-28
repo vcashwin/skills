@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- The video's player, served by `render.mjs <dir> --serve`: space plays and pauses, ←/→ step a second, the bar scrubs,
+     the menu jumps to a scene, #12.5 in the URL opens at 12.5 s. It draws the same frame(t) the renderer encodes. -->
+<meta charset="utf-8">
+<title>illustration-video</title>
+<style>
+  @font-face { font-family: "Inter Variable"; src: url("/fonts/InterVariable.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Inter Variable"; src: url("/fonts/InterVariable-Italic.woff2") format("woff2"); font-weight: 100 900; font-style: italic; }
+  html, body { margin: 0; background: #000; color: #aaa; font: 13px "Inter Variable", system-ui; }
+  #stage { width: 100vw; height: calc(100vw * 9 / 16); max-height: calc(100vh - 40px); aspect-ratio: 16 / 9; margin: auto; }
+  #stage svg { display: block; width: 100%; height: 100%; }
+  #bar { display: flex; gap: 12px; align-items: center; padding: 8px 12px; }
+  #bar input { flex: 1; }
+</style>
+<div id="stage"></div>
+<div id="bar"><button id="play">Play</button><input id="scrub" type="range" min="0" step="0.01"><span id="time"></span><select id="jump"></select></div>
+<script type="module">
+  import { frame, DURATION, sceneList } from "/p/scenes.mjs";
+  const $ = id => document.getElementById(id), stage = $("stage"), scrub = $("scrub"), play = $("play"), jump = $("jump");
+  scrub.max = DURATION;
+  for (const s of sceneList()) jump.add(new Option(`${s.id} (${s.start.toFixed(1)}s)`, s.start));
+  let t = Number(location.hash.slice(1)) || 0, playing = false, last = 0;
+  const show = () => { stage.innerHTML = frame(t); scrub.value = t; $("time").textContent = `${t.toFixed(2)} / ${DURATION.toFixed(1)} s`; history.replaceState(null, "", `#${t.toFixed(2)}`); };
+  const tick = now => { if (!playing) return; t = Math.min(DURATION, t + (now - last) / 1000); last = now; show(); if (t >= DURATION) toggle(); else requestAnimationFrame(tick); };
+  const toggle = () => { playing = !playing; play.textContent = playing ? "Pause" : "Play"; if (playing && t >= DURATION) t = 0; last = performance.now(); requestAnimationFrame(tick); };
+  play.onclick = toggle;
+  scrub.oninput = () => { t = Number(scrub.value); show(); };
+  jump.onchange = () => { t = Number(jump.value); show(); };
+  addEventListener("keydown", e => { if (e.key === " ") { e.preventDefault(); toggle(); } if (e.key === "ArrowRight") { t = Math.min(DURATION, t + 1); show(); } if (e.key === "ArrowLeft") { t = Math.max(0, t - 1); show(); } });
+  document.fonts.ready.then(show);
+</script>
